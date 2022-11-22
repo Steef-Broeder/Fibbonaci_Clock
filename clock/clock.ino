@@ -1,5 +1,4 @@
-#include <Wire.h>
-#include "RTClib.h"
+
 
 struct Led
 {
@@ -54,57 +53,48 @@ void loop()
     // Fetch the current time from the RTC
     DateTime now = rtc.now();
 
-    int TempMinCombi = now.minute() / 5;
-    if TempMinCombi - round(TempMinCombi) = > 0
-    {
-        int MinCombi = round(TempMinCombi);
-        int RestMin = now.minute() - (MinCombi * 5);
-    } else {
-        int Mincombi = round(TempMincombi) - 1;
-        int RestMin = now.minute() - (MinCombi * 5);
-    }
+    //----------MINUTE----------
+    remainder = now.minute() % 5
+    MinCombi = (now.minute() - remainder) / 5
 
-    if MinCombi = > 5
+    if(MinCombi >= 5)
     {
         int Led5 = Led5++;
         int Div1 = MinCombi - 5;
     }
     else
     {
-        Led5 uit; // led5 = 0
         int Div1 = MinCombi;
     }
-    if Div1 = > 3
+    if(Div1 >= 3)
     {
         int Led3 = Led3++;
         int Div2 = Div1 - 3;
     }
     else
     {
-        Led3 uit;
         int Div2 = Div1;
     }
-    if Div2 = > 2
+    if(Div2 >= 2)
     {
         int Led2 = Led2++;
         int Div3 = Div2 - 2;
     }
     else
     {
-        Led2 uit;
         int Div3 = Div2;
     }
-    if (Div3 = > 1)
+    if(Div3 >= 1)
     {
         int Led1 = Led1++;
         int Div4 = Div3 - 1;
     }
     else
     {
-        Led1 uit;
         int Div4 = Div3;
     }
 
+    //----------HOUR----------
     if now.hour = > 5
     {
         int Led5 = Led5 + 2;
@@ -150,9 +140,6 @@ void loop()
     If(now.second >= 59)
     {
         delay(59.999 - now.second);
-        Led1 = 0;
-        Led2 = 0;
-        Led3 = 0;
-        Led5 = 0;
+        Led1, Led2, Led3, Led5 = 0, 0, 0, 0;
     }
 }
