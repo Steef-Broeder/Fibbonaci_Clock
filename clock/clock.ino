@@ -54,95 +54,107 @@ void CalcPaneColors(RtcDateTime now) {
 
   PanelMinute = remainder;
 
-  int Div1 = 0;
-  int Div2 = 0;
-  int Div3 = 0;
-  int Div4 = 0;
+  Serial.print("remainder: ");
+  Serial.println(remainder);
+  Serial.print("minCombi: ");
+  Serial.println(MinCombi);
+  Serial.print("uurCombi: ");
+  Serial.println(UurCombi);
 
-  int DivU1 = 0;
-  int DivU2 = 0;
+  int Div5 = 0;
+  int Div3 = 0;
+  int Div2 = 0;
+  int Div1 = 0;
+
+  int DivU5 = 0;
   int DivU3 = 0;
-  int DivU4 = 0;
+  int DivU2 = 0;
+  int DivU1 = 0;
 
   if(MinCombi >= 5)
   {
-    Panel5 = Panel5++;
-    Div1 = MinCombi - 5;
+    Panel5++;
+    Div5 = MinCombi - 5;
   }
   else
   {
-    Div1 = MinCombi;
+    Div5 = MinCombi;
   }
-  if(Div1 >= 3)
+  if(Div5 >= 3)
   {
-    Panel3 = Panel3++;
-    Div2 = Div1 - 3;
+    Panel3++;
+    Div3 = Div5 - 3;
   }
   else
   {
-    Div2 = Div1;
+    Div3 = Div5;
   }
-  if(Div2 >= 2)
+  if(Div3 >= 2)
   {
-    Panel2 = Panel2++;
-    Div3 = Div2 - 2;
+    Panel2++;
+    Div2 = Div3 - 2;
   }
   else
   {
-    Div3 = Div2;
+    Div2 = Div3;
   }
-  if(Div3 >= 1)
+  if(Div2 >= 1)
   {
-    Panel1 = Panel1++;
-    Div4 = Div3 - 1;
+    Panel1++;
+    Div1 = Div2 - 1;
   }
   else
   {
-    Div4 = Div3;
+    Div1 = Div2;
   }
+
   //----------HOUR----------
-  if(now.Hour() >= 5)
+  if(UurCombi >= 5)
   {
     Panel5 = Panel5 + 2;
-    DivU1 = UurCombi - 5;
+    DivU5 = UurCombi - 5;
   }
   else
   {
-    DivU1 = UurCombi;
+    DivU5 = UurCombi;
   }
-  if(now.Hour() >= 3)
+  if(DivU5 >= 3)
   {
     Panel3 = Panel3 + 2;
-    DivU2 = DivU1 - 3;
+    DivU3 = DivU5 - 3;
   }
   else
   {
-    DivU2 = DivU1;
+    DivU3 = DivU5;
   }
-  if(now.Hour() >= 2)
+  if(DivU3 >= 2)
   {
     Panel2 = Panel2 + 2;
-    DivU3 = DivU2 - 2;
+    DivU2 = DivU3 - 2;
   }
   else
   {
-    DivU3 = DivU2;
+    DivU2 = DivU3;
   }
-  if(now.Hour() >= 1)
+  if(DivU2 >= 1)
   {
     Panel1 = Panel1 + 2;
-    DivU4 = DivU3 - 5;
+    DivU1 = DivU2 - 5;
   }
   else
   {
-    DivU4 = DivU3;
+    DivU1 = DivU2;
   }
-  
-  if(now.Second() >= 59)
-  {
-    delay(59.999 - now.Second());
-    Panel1, Panel2, Panel3, Panel5 = 0, 0, 0, 0;
-  }
+
+  //Debugging
+  Serial.println("PanelValues:");
+  Serial.println(Panel5);
+  Serial.println(Panel3);
+  Serial.println(Panel2);  
+  Serial.println(Panel1);
+  Serial.println(PanelMinute);
+
+  Panel5, Panel3, Panel2, Panel1, PanelMinute = 0, 0, 0, 0, 0;  
 }
 
 void SetLedstrips() {
@@ -299,7 +311,7 @@ void loop() {
 
   SetLedstrips(); //Sets the panels to correct colors
 
-  delay(1000); // 1 sec
+  delay(60000); // 1 sec
 }
 
 
